@@ -22,29 +22,8 @@ $(document).ready(function () {
     var stateRef = database.ref("/state");
 
 //============================== FUNCTIONS =======================================//
+//THESE MAY BE LARGELY UNNECESSARY!! SEEMS LIKE THE LISTENERS ARE COVERING IT????//
 
-
-    var assignPlayer = function (name) {
-        //send player name to database, return number based on number of current connections
-        //set
-        database.ref().set({
-
-        });
-    }
-
-    var removePlayer = function (number) {
-        //
-    }
-
-    var setPlayerChoice = function (number, choice) {
-        //send player choice to database, use player number to avoid name conflicts (same name)
-        //set
-    };
-
-    var sendMessage = function (number, message) {
-        //send player chat message to database, use player number
-        //push
-    }
 
 //============================== LOCAL VARS =======================================//
 
@@ -113,7 +92,7 @@ $(document).ready(function () {
     playersRef.on("child_removed", function(snap) {
 
         totalPlayers--;
-        playerRef.set({playerName: playerName, playerNumber: totalPlayers});
+        playerRef.set({playerName: playerName, playerNumber: totalPlayers, playerMove: playerMove});
         $("#player-number").html(`Player Number: ${totalPlayers}`);
 
     });
@@ -145,13 +124,15 @@ $(document).ready(function () {
 
     });
 
-    $("#send-move-btn").on("click", function(evt){
-         
+    $(document).on("click", "#send-move-btn", function(evt){
+        var $playerMove = $("#player-move");
         evt.preventDefault();
 
-        playerMove = $("#player-move").val().trim();
+        playerMove = $playerMove.val().trim();
 
+        playerRef.set({playerName: playerName, playerNumber: playerNumber, playerMove: playerMove});
 
+        $playerMove.val("");
     });
 
 
