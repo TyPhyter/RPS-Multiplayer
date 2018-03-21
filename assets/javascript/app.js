@@ -237,9 +237,9 @@ $(document).ready(function () {
                 <div id="player-number">Player Number: ${playerNumber} </div>
                 <br>
                 <div id="wins-losses"><span id="wins">Wins: ${wins} </span><span id="losses"> Losses: ${losses}</span></div>
-                <label class="radio-inline"><input class="my-radio" type="radio" name="rock">Rock</label>
-                <label class="radio-inline"><input class="my-radio" type="radio" name="paper">Paper</label>
-                <label class="radio-inline"><input class="my-radio" type="radio" name="scissors">Scissors</label>
+                <label class="radio-inline"><input class="my-radio" type="radio" name="rpsradio" data-move="rock">Rock</label>
+                <label class="radio-inline"><input class="my-radio" type="radio" name="rpsradio" data-move="paper">Paper</label>
+                <label class="radio-inline"><input class="my-radio" type="radio" name="rpsradio" data-move="scissors">Scissors</label>
                 <button class="btn btn-primary" id="send-move-btn">Shoot!</button>
                 <br><br>
                 <div id="messages-target"></div>
@@ -283,7 +283,7 @@ $(document).ready(function () {
         $radios = $(".my-radio");
         $radios.each(function(){
             if($(this).prop("checked")){
-                playerMove = $(this).attr("name");
+                playerMove = $(this).attr("data-move");
                 //uncheck the button after we send the move
                 $(this).prop("checked", false);
             }
