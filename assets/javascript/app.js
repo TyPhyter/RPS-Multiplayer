@@ -221,36 +221,43 @@ $(document).ready(function () {
 
         evt.preventDefault();
 
-        playerName = $("#username").val().trim();
-        playerRef = playersRef.push();
-        playerRef.onDisconnect().remove();
-        playerRef.set({playerName: playerName, playerNumber: totalPlayers + 1});
-        playerNumber = totalPlayers;//don't need the + 1 because the "value" listener runs on set
-        
+        if(totalPlayers < 2){
 
-        $("#username").val("");
-        $target.html(`
-            <div>Logged in as: ${playerName} <br> </div>
-            <br>
-            <div id="player-number">Player Number: ${playerNumber} </div>
-            <br>
-            <div id="wins-losses"><span id="wins">Wins: ${wins} </span><span id="losses"> Losses: ${losses}</span></div>
-            <label class="radio-inline"><input class="my-radio" type="radio" name="rock">Rock</label>
-            <label class="radio-inline"><input class="my-radio" type="radio" name="paper">Paper</label>
-            <label class="radio-inline"><input class="my-radio" type="radio" name="scissors">Scissors</label>
-            <button class="btn btn-primary" id="send-move-btn">Shoot!</button>
-            <br><br>
-            <div id="messages-target"></div>
-            <form>
-                <input type="text" id="message-input" placeholder="Type a message">
-                <br><br>
-                <button class="btn btn-primary" id="send-message-btn">Send</button>
+            playerName = $("#username").val().trim();
+            playerRef = playersRef.push();
+            playerRef.onDisconnect().remove();
+            playerRef.set({playerName: playerName, playerNumber: totalPlayers + 1});
+            playerNumber = totalPlayers;//don't need the + 1 because the "value" listener runs on set
+            
+
+            $("#username").val("");
+            $target.html(`
+                <div>Logged in as: ${playerName} <br> </div>
                 <br>
-            </form>
-        `);
-        sendMessage("", `${playerName} signed in`);
-        if(totalPlayers === 2) {
-            sendMessage("", "The room is full! Choose your moves!");
+                <div id="player-number">Player Number: ${playerNumber} </div>
+                <br>
+                <div id="wins-losses"><span id="wins">Wins: ${wins} </span><span id="losses"> Losses: ${losses}</span></div>
+                <label class="radio-inline"><input class="my-radio" type="radio" name="rock">Rock</label>
+                <label class="radio-inline"><input class="my-radio" type="radio" name="paper">Paper</label>
+                <label class="radio-inline"><input class="my-radio" type="radio" name="scissors">Scissors</label>
+                <button class="btn btn-primary" id="send-move-btn">Shoot!</button>
+                <br><br>
+                <div id="messages-target"></div>
+                <form>
+                    <input type="text" id="message-input" placeholder="Type a message">
+                    <br><br>
+                    <button class="btn btn-primary" id="send-message-btn">Send</button>
+                    <br>
+                </form>
+            `);
+            sendMessage("", `${playerName} signed in`);
+            if(totalPlayers === 2) {
+                sendMessage("", "The room is full! Choose your moves!");
+            }
+        }
+
+        else if(totalPlayers >= 2){
+            alert("This room is full! Try again later.");
         }
     
     });
